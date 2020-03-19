@@ -1,6 +1,7 @@
 package commit.kafka.controller;
 
 import commit.kafka.consumer.Receiver;
+import commit.kafka.dto.ChattingMessage;
 import commit.kafka.producer.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,7 +15,7 @@ public class ChattingController {
     Sender sender;
 
     @MessageMapping("/message")
-    public void sendMessage() {
-//        sender.send("chatting");
+    public void sendMessage(ChattingMessage message) {
+        sender.send("chatting", message.getMessage() + "|" + message.getUser());
     }
 }
